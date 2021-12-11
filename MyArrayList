@@ -1,0 +1,247 @@
+
+package com.company;
+
+public class MyArrayList<E> extends MyAbstractList {
+
+    final static int  capacity =5;
+    E[] arr=(E[])new Object[capacity];
+
+
+
+    @Override
+    public void add(Object o) {
+
+        ensureCap();
+
+        arr[getSize()]=(E)o;
+        setSize(getSize() +1);
+
+    }
+
+    @Override
+    public boolean add(int index, Object element) {
+        ensureCap();
+        if (index < 0 ||(index > getSize())) {
+return false;
+        }
+        else {
+            for (int i = getSize(); i > index; i--) {
+                arr[i] = arr[i - 1];
+            }
+            arr[index]=(E)element;
+            setSize(getSize()+1);
+            return true;
+        }
+
+    }
+
+    @Override
+    public void clear() {
+
+setSize(0);    }
+/////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public boolean eqaules(Object o) {
+        o=(E)o;
+        if (o==this){
+            return true;
+        }
+        else
+        return false;
+
+    }
+
+    @Override
+    public boolean eqaules(Object[] c) {
+        c= (E[]) c;
+
+        if (this.getSize() != c.length) {
+            return false;
+        }
+
+        boolean x = true;
+
+        for (int i=0; i<getSize();i++) {
+            if (arr[i] != c[i]) {
+                x = false;
+            }
+        }
+        return x;
+
+    }
+////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public Object get(int index) {
+        if (index<0||index>getSize()){
+            return "error";
+        } else {
+            return arr[index];
+
+        }
+    }
+
+    @Override
+    public int indexOf(Object o) {
+
+        int ind = 0;
+        int c = 0;
+        // o=(E)o;
+        for (int i = 0; i < getSize(); i++) {
+            if (arr[i] == o) {
+                ind = i;
+                c++;
+                break;
+            }
+            if (c == 0) {
+                ind = -1;
+            }
+        }
+        return ind;
+    }
+
+    @Override
+    public int lastindexOf(Object o) {
+        int ind=0;
+        int c=0;
+        // o=(E)o;
+
+        for (int i = getSize()-1; i>=0 ; i--) {
+            if (arr[i] == o) {
+                ind = i;
+                c++;
+                break;
+            }
+            if (c == 0) {
+                ind = -1;
+            }
+        }
+        return ind;
+    }
+
+    @Override
+    public Object remove(int index) {
+        if (index < 0||index > getSize()) {
+            System.out.println("error");
+        }
+        else {
+            ensureCap();
+
+            for (int i =index ; i <getSize(); i++) {
+                arr[i] = arr[i+1];
+            }
+            setSize(getSize()-1);
+
+        }
+
+        return arr;
+    }
+
+
+
+    @Override
+    public void set(int index, Object element) {
+
+        if (index<0||index>getSize()){
+            System.out.println("error");
+        }
+        else
+            arr[index]=(E)element;
+
+    }
+
+    @Override
+    public Object[] subList(int foendex, int toendex) {
+        int def = toendex - foendex ;
+        E[] a = (E[]) new Object[def];
+        if (foendex < 0 || toendex > getSize()) {
+            System.out.println("error");
+        }
+        else {
+            int j=0;
+            for (int i = foendex; i < toendex; i++) {
+                a[j] = arr[i];
+                j++;
+            }
+        }
+        return a;
+
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public boolean addAll(Object[] c) {
+if (isEmpty())
+    return false;
+else{
+    c=(E[])c;
+    int j=0;
+    ensureCap();
+    for (int i = getSize(); i <arr.length; i++) {
+        arr[i]= (E) c[j];
+    }
+    return true;
+}
+    }
+
+    @Override
+    public boolean addAll(int index, Object[] c) {
+        if (isEmpty())
+            return false;
+        else{
+            c=(E[])c;
+            int j=0;
+            ensureCap();
+            for (int i = getSize(); i <arr.length; i++) {
+add(index,arr[i]);
+            }
+            return true;
+
+        }
+    }
+
+    @Override
+    public boolean contains(Object o) {
+
+        return indexOf(o)>=0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        if (getSize()==0)
+        return true;
+        return false;
+    }
+
+    @Override
+    public void trimToSize() {
+        int j=0;
+        E[] tt=(E[])new Object[getSize()];
+        for (int i = 0; i <tt.length ; i++) {
+            tt[i]=tt[j];
+            j++;
+        }
+        arr=tt;
+    }
+//////////////////////////////////////////////////////////
+
+    @Override
+    public String toString() {
+        String str = "[";
+        for (int i = 0; i < getSize(); i++) {
+            str += arr[i]+" ";
+
+        }
+        return str + "]";
+
+    }
+
+    private  void ensureCap() {
+        if (getSize()==arr.length) {
+            E[] temp = (E[]) new Object[arr.length * 2];
+            for (int i = 0; i < arr.length; i++) {
+                temp[i] = arr[i];
+            }
+            arr = temp;
+        }
+    }
+
+}
