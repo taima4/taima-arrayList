@@ -1,0 +1,32 @@
+package com.company;
+
+public abstract class MyAbstractList<E> {
+
+    private int  size ;
+
+    public  int getSize(){
+        return size;
+    }
+    public void setSize(int size){
+       this.size=size;
+    }
+
+    public abstract void  add(E e);
+    public abstract boolean add(int index , E element);
+    public abstract void clear();
+    public abstract boolean eqaules(Object o);
+    public abstract boolean eqaules(E[] c);
+    public abstract E get(int index );
+    public abstract int indexOf(Object o);
+    public abstract int lastindexOf(Object o);
+    public abstract E remove(int index);
+    public abstract void set(int index , E element);
+    public abstract E[] subList(int foendex , int toendex);
+    public abstract boolean addAll(E[] c);
+    public abstract boolean addAll(int index,E[] c);
+    public abstract boolean contains(E e);
+    public abstract boolean isEmpty();
+    public abstract void trimToSize();
+    public abstract String toString();
+
+}
